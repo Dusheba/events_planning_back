@@ -16,8 +16,16 @@ public class EventService {
         return (List<Event>) repository.findAll();
     }
 
-    public List<Event> getAllById(int id) {
+    public List<Event> getAllByOwnerId(int id) {
         System.out.println(repository.findAllByOwner(id));
         return repository.findAllByOwner(id);
+    }
+
+    public Event getById(int id){
+        return repository.findEventById(id);
+    }
+
+    public void addEvent(Event event){
+        repository.save(event);
     }
 }

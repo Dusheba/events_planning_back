@@ -15,4 +15,8 @@ public class CategoryService {
     public List<EventCategory> getAll() {
         return (List<EventCategory>) repository.findAll();
     }
+
+    public void addCat(EventCategory category){
+        repository.save(category);
+    }
 }

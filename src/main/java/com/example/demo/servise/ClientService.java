@@ -18,4 +18,8 @@ public class ClientService {
     public Client getById(int id){
         return repository.findClientById(id);
     }
+
+    public void add(Client client) {
+        repository.save(client);
+    }
 }
