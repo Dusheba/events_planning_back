@@ -14,4 +14,7 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
     List<Event> findAllByOwner(int owner);
 
     Event findEventById(int id);
+
+    @Query(value = "SELECT * FROM event where category=:id", nativeQuery = true)
+    List<Event> getByCat(int id);
 }

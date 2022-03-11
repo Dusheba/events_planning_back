@@ -77,6 +77,11 @@ public class MainController {
         return eventService.getAllByOwnerId(1);
     }
 
+    @GetMapping("/events/category")
+    public List<Event> getByCat(@RequestParam int category){
+        return eventService.getByCat(category);
+    }
+
     @GetMapping("/preferences/all")
     public List<Preference> getAllPref(){
         return preferenceService.getAll();

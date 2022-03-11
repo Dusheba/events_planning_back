@@ -25,6 +25,10 @@ public class EventService {
         return repository.findEventById(id);
     }
 
+    public List<Event> getByCat(int id){
+        return repository.getByCat(id);
+    }
+
     public void addEvent(Event event){
         repository.save(event);
     }
