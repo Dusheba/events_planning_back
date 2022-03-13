@@ -17,4 +17,7 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     @Query(value = "SELECT * FROM event where category=:id", nativeQuery = true)
     List<Event> getByCat(int id);
+
+    @Query(value = "SELECT * FROM event where extract(month from start_time)=:month and category=:id", nativeQuery = true)
+    List<Event> getByMonthAndCat(int month, int id);
 }

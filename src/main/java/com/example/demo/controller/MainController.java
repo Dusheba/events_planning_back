@@ -55,6 +55,10 @@ public class MainController {
     public List<EventCategory> getAllCats() {
         return categoryService.getAll();
     }
+    @GetMapping("/category/id")
+    public EventCategory getCatById(@RequestParam int id){
+        return categoryService.getById(id);
+    }
 
     @PostMapping("/category/add")
     public void addCat(@RequestBody EventCategory category){
@@ -73,13 +77,21 @@ public class MainController {
 
     @GetMapping("/events/owner")
     public List<Event> getByOwner(@RequestParam int owner){
-        System.out.println(eventService.getAllByOwnerId(owner));
         return eventService.getAllByOwnerId(1);
+    }
+    @GetMapping("/events/month")
+    public List<Event> getByMonth(@RequestParam int month, @RequestParam int id){
+        return eventService.getByMonthAndCat(month, id);
     }
 
     @GetMapping("/events/category")
     public List<Event> getByCat(@RequestParam int category){
         return eventService.getByCat(category);
+    }
+
+    @PostMapping("/events/add")
+    public void addEvent(@RequestBody Event event){
+        eventService.addEvent(event);
     }
 
     @GetMapping("/preferences/all")

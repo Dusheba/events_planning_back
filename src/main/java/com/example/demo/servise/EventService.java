@@ -32,4 +32,8 @@ public class EventService {
     public void addEvent(Event event){
         repository.save(event);
     }
+
+    public List<Event> getByMonthAndCat(int month, int id){
+        return repository.getByMonthAndCat(month, id);
+    }
 }
