@@ -4,7 +4,6 @@ import com.example.demo.entity.Client;
 import com.example.demo.entity.ClientEvent;
 import com.example.demo.entity.Event;
 import com.example.demo.repository.ClientEventRepo;
-import com.example.demo.repository.ClientPrefRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,15 @@ public class ClientEventService {
 
     public List<ClientEvent> getAll() {
         return (List<ClientEvent>) repository.findAll();
+    }
+
+    public List<Event> getAllByClientAndDateAndCat(int id, int catId, int month){
+        List<Event> events = new ArrayList<>();
+        List<ClientEvent> clientEvents = repository.getByClientAndDateAndCat(id, catId, month);
+        for (ClientEvent clientEvent : clientEvents) {
+            events.add(clientEvent.getEvent());
+        }
+        return events;
     }
 
     public List<Event> getAllByClient(int id){

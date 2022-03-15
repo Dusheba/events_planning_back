@@ -36,4 +36,8 @@ public class EventService {
     public List<Event> getByMonthAndCat(int month, int id){
         return repository.getByMonthAndCat(month, id);
     }
+
+//    public void update(Event event){
+//        repository.save(newEvent);
+//    }
 }

@@ -9,7 +9,13 @@ import java.util.List;
 public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
 
     @Query(value = "SELECT * FROM client_event as ce join client c on c.id = ce.client_id" +
-            " join event e on e.id = ce.event_id where ce.client_id=:id"
+            " join event e on e.id = ce.event_id where (ce.client_id=:id or e.owner_id=:id) " +
+            "and e.category=:catId and extract(month from e.start_time)=:month"
+            ,nativeQuery = true)
+    List<ClientEvent> getByClientAndDateAndCat(int id, int catId, int month);
+
+    @Query(value = "SELECT DISTINCT * FROM client_event as ce join client c on c.id = ce.client_id" +
+            " join event e on e.id = ce.event_id where (ce.client_id=:id or e.owner_id=:id) "
             ,nativeQuery = true)
     List<ClientEvent> getByClient(int id);
 

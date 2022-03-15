@@ -41,6 +41,10 @@ public class MainController {
         return clientEventService.getAll();
     }
 
+    @GetMapping("/invitation/client/params")
+    public List<Event> getEventsByClientAndDateAndCat(@RequestParam int id, @RequestParam int cat, @RequestParam int month){
+        return clientEventService.getAllByClientAndDateAndCat(id, cat, month);
+    }
     @GetMapping("/invitation/client")
     public List<Event> getEventsByClient(@RequestParam int id){
         return clientEventService.getAllByClient(id);
@@ -91,6 +95,11 @@ public class MainController {
 
     @PostMapping("/events/add")
     public void addEvent(@RequestBody Event event){
+        eventService.addEvent(event);
+    }
+
+    @PutMapping("events/update")
+    public void updateEvent(@RequestBody Event event){
         eventService.addEvent(event);
     }
 
