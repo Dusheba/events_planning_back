@@ -1,10 +1,13 @@
 package com.example.demo.entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -25,6 +28,9 @@ public class Event {
     private String description;
     private String address;
     private double budget;
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
+    @JsonFormat (pattern = "yyyy-mm-dd HH:mm:ss")
     private Date startTime;
 
     @ManyToOne

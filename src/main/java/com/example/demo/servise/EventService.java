@@ -5,6 +5,10 @@ import com.example.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +34,16 @@ public class EventService {
     }
 
     public void addEvent(Event event){
+        SimpleDateFormat formatInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+        SimpleDateFormat formatOutput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String str = formatInput.format(event.getStartTime());
+        try {
+            Date date = formatOutput.parse(str);
+            System.out.println(date);
+            event.setStartTime(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         repository.save(event);
     }
 
