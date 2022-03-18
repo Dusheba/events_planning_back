@@ -33,6 +33,8 @@ public class ClientEventService {
         List<ClientEvent> clientEvents = repository.getByClient(id);
         for (ClientEvent clientEvent : clientEvents) {
             events.add(clientEvent.getEvent());
+            System.out.println("******");
+            System.out.println(clientEvent.getEvent().getStartTime() + " " + clientEvent.getEvent().getId());
         }
         return events;
     }

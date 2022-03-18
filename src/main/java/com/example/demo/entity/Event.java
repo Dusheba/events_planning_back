@@ -29,8 +29,8 @@ public class Event {
     private String address;
     private double budget;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    @JsonFormat (pattern = "yyyy-mm-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     @ManyToOne

@@ -1,13 +1,17 @@
 package com.example.demo.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "client_event")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientEvent {
 
     @Id
@@ -21,4 +25,5 @@ public class ClientEvent {
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
+
 }

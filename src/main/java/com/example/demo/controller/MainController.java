@@ -98,10 +98,10 @@ public class MainController {
         eventService.addEvent(event);
     }
 
-    @PutMapping("events/update")
-    public void updateEvent(@RequestBody Event event){
-        eventService.addEvent(event);
-    }
+//    @PutMapping("events/update")
+//    public void updateEvent(@RequestBody Event event){
+//        eventService.addEvent(event);
+//    }
 
     @GetMapping("/preferences/all")
     public List<Preference> getAllPref(){
