@@ -37,13 +37,22 @@ public class EventService {
     }
 
     public void addEvent(Event event){
-        repository.save(event);
-        clientEventRepo.addClientEvent(event.getId(),event.getOwner().getId());
+        if(event.getId()>0) {
+            repository.save(event);
+        }
+        else {
+            Event newEvent = repository.save(event);
+            clientEventRepo.addClientEvent(newEvent.getId(), event.getOwner().getId());
+        }
 
     }
 
     public List<Event> getByMonthAndCat(int month, int id){
         return repository.getByMonthAndCat(month, id);
+    }
+
+    public void delete(Event event){
+        repository.delete(event);
     }
 
 }

@@ -26,4 +26,8 @@ public class ClientEvent {
     @JoinColumn(name = "event_id")
     private Event event;
 
+    public ClientEvent(Client client, Event event) {
+        this.client = client;
+        this.event = event;
+    }
 }
