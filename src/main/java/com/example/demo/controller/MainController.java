@@ -55,6 +55,11 @@ public class MainController {
         return clientEventService.getByEvent(id);
     }
 
+    @PostMapping("/invite")
+    public void inviteClients(@RequestBody InvitationRequest request){
+        clientEventService.inviteClients(request);
+    }
+
     @GetMapping("/category/all")
     public List<EventCategory> getAllCats() {
         return categoryService.getAll();
@@ -102,10 +107,15 @@ public class MainController {
         eventService.addEvent(event);
     }
 
-//    @PutMapping("events/update")
-//    public void updateEvent(@RequestBody Event event){
-//        eventService.addEvent(event);
-//    }
+    @PutMapping("/events/update")
+    public void updateEvent(@RequestBody Event event){
+        eventService.addEvent(event);
+    }
+
+    @DeleteMapping("/event/delete")
+    public void deleteEvent(@RequestBody Event event){
+        eventService.delete(event);
+    }
 
     @GetMapping("/preferences/all")
     public List<Preference> getAllPref(){

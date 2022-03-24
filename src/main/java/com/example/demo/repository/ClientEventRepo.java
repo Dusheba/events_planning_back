@@ -4,13 +4,14 @@ import com.example.demo.entity.ClientEvent;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
 
     @Query(value = "select " +
-                   "CASE WHEN ce.id is null THEN 0 ELSE ce.id END as id," +
+                   "CASE WHEN ce.id is null THEN (1000+event.id) ELSE ce.id END as id," +
                    "CASE WHEN ce.client_id is null THEN event.owner_id ELSE ce.client_id END as client_id," +
                    "CASE WHEN ce.event_id is null THEN event.id ELSE ce.event_id END as event_id" +
                    " from client_event ce right join event on " +
@@ -21,7 +22,7 @@ public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
     List<ClientEvent> getByClientAndDateAndCat(int id, int catId, int month);
 
     @Query(value = "select " +
-                   "CASE WHEN ce.id is null THEN 1000 ELSE ce.id END as id," +
+                   "CASE WHEN ce.id is null THEN (1000+event.id) ELSE ce.id END as id," +
                    "CASE WHEN ce.client_id is null THEN event.owner_id ELSE ce.client_id END as client_id," +
                    "CASE WHEN ce.event_id is null THEN event.id ELSE ce.event_id END as event_id" +
                    " from client_event ce right join event on " +
@@ -31,12 +32,13 @@ public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
     List<ClientEvent> getByClient(int id);
 
     @Query(value = "SELECT * FROM client_event as ce join client c on c.id = ce.client_id" +
-            " join event e on e.id = ce.event_id where ce.event_id=:id"
+            " join event e on e.id = ce.event_id where ce.event_id=:id and e.owner_id!=c.id"
             ,nativeQuery = true)
     List<ClientEvent> getByEvent(int id);
 
 
     @Modifying
-    @Query(value = "insert into client_event values (default, :eventId, :clientId)", nativeQuery = true)
+    @Transactional
+    @Query(value = "insert into client_event values (default, :clientId, :eventId)", nativeQuery = true)
     void addClientEvent(int eventId, int clientId);
 }

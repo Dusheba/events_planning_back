@@ -3,7 +3,9 @@ package com.example.demo.servise;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.ClientEvent;
 import com.example.demo.entity.Event;
+import com.example.demo.entity.InvitationRequest;
 import com.example.demo.repository.ClientEventRepo;
+import com.example.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.List;
 public class ClientEventService {
     @Autowired
     private ClientEventRepo repository;
+    @Autowired
+    private EventRepository eventRepository;
 
     public List<ClientEvent> getAll() {
         return (List<ClientEvent>) repository.findAll();
@@ -25,6 +29,7 @@ public class ClientEventService {
         for (ClientEvent clientEvent : clientEvents) {
             events.add(clientEvent.getEvent());
         }
+        System.out.println(events);
         return events;
     }
 
@@ -32,9 +37,9 @@ public class ClientEventService {
         List<Event> events = new ArrayList<>();
         List<ClientEvent> clientEvents = repository.getByClient(id);
         for (ClientEvent clientEvent : clientEvents) {
-            events.add(clientEvent.getEvent());
-            System.out.println("******");
-            System.out.println(clientEvent.getEvent().getStartTime() + " " + clientEvent.getEvent().getId());
+            if(!events.contains(clientEvent.getEvent())) {
+                events.add(clientEvent.getEvent());
+            }
         }
         return events;
     }
@@ -46,5 +51,21 @@ public class ClientEventService {
             clients.add(clientEvent.getClient());
         }
         return clients;
+    }
+
+    public void inviteClients(InvitationRequest request){
+        List<Client> clients = request.getClients();
+        Event event = request.getEvent();
+        if(event.getId()>0) {
+            for (Client client : clients) {
+                repository.save(new ClientEvent(client, event));
+            }
+        }
+        else {
+            Event newEvent = eventRepository.save(event);
+            for (Client client : clients) {
+                repository.save(new ClientEvent(client, newEvent));
+            }
+        }
     }
 }
