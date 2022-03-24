@@ -28,6 +28,10 @@ public class EventService {
         return repository.findAllByOwner(id);
     }
 
+    public List<Event> findByTitle(String title) {
+        return repository.findByTitle(title);
+    }
+
     public Event getById(int id){
         return repository.findEventById(id);
     }

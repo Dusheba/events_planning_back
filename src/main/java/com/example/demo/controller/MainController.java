@@ -83,6 +83,10 @@ public class MainController {
     public List<Event> getByOwner(@RequestParam int owner){
         return eventService.getAllByOwnerId(1);
     }
+    @GetMapping("/events/title")
+    public List<Event> getByTitle(@RequestParam String title){
+        return eventService.findByTitle(title);
+    }
     @GetMapping("/events/month")
     public List<Event> getByMonth(@RequestParam int month, @RequestParam int id){
         return eventService.getByMonthAndCat(month, id);
