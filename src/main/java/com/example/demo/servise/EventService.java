@@ -28,8 +28,8 @@ public class EventService {
         return repository.findAllByOwner(id);
     }
 
-    public List<Event> findByTitle(String title) {
-        return repository.findByTitle(title);
+    public List<Event> findByTitleAndOwner(String title, int owner) {
+        return repository.findByTitleAndOwner(title, owner);
     }
 
     public Event getById(int id){
