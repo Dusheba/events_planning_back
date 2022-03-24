@@ -57,8 +57,11 @@ public class ClientEventService {
         List<Client> clients = request.getClients();
         Event event = request.getEvent();
         if(event.getId()>0) {
-            for (Client client : clients) {
-                repository.save(new ClientEvent(client, event));
+            eventRepository.save(event);
+            if(!clients.isEmpty()) {
+                for (Client client : clients) {
+                    repository.save(new ClientEvent(client, event));
+                }
             }
         }
         else {
