@@ -35,6 +35,15 @@ public class MainController {
     public void addClient(@RequestBody Client client){
         clientService.add(client);
     }
+    @PutMapping("/client/update")
+    public void updateClient(@RequestBody Client client){
+        clientService.add(client);
+    }
+
+    @DeleteMapping("/client/delete")
+    public void deleteClient(@RequestBody Client client){
+        clientService.deleteById(client);
+    }
 
     @GetMapping("/invitation/all")
     public List<ClientEvent> getALl() {

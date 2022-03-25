@@ -1,6 +1,7 @@
 package com.example.demo.servise;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.Event;
 import com.example.demo.repository.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,16 @@ public class ClientService {
     }
 
     public void add(Client client) {
-        repository.save(client);
+        if(client.getId()!=0) {
+            Client newClient = repository.save(client);
+            newClient.setId(client.getId());
+        }
+        else {
+            repository.save(client);
+        }
+    }
+
+    public void deleteById(Client client){
+        repository.deleteById(client.getId());
     }
 }
