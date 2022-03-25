@@ -59,6 +59,7 @@ public class ClientEventService {
         if(event.getId()>0) {
             eventRepository.save(event);
             if(!clients.isEmpty()) {
+                repository.updateGuestList(event.getId());
                 for (Client client : clients) {
                     repository.save(new ClientEvent(client, event));
                 }
@@ -66,6 +67,7 @@ public class ClientEventService {
         }
         else {
             Event newEvent = eventRepository.save(event);
+            repository.updateGuestList(event.getId());
             for (Client client : clients) {
                 repository.save(new ClientEvent(client, newEvent));
             }
