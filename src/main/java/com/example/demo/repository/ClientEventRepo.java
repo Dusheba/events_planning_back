@@ -41,4 +41,9 @@ public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
     @Transactional
     @Query(value = "insert into client_event values (default, :clientId, :eventId)", nativeQuery = true)
     void addClientEvent(int eventId, int clientId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from client_event ce where ce.event_id =:event_id", nativeQuery = true)
+    void updateGuestList(int event_id);
 }
