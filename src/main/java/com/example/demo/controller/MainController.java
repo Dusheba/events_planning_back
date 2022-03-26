@@ -107,8 +107,8 @@ public class MainController {
     }
 
     @GetMapping("/events/category")
-    public List<Event> getByCat(@RequestParam int category){
-        return eventService.getByCat(category);
+    public List<Event> getByCat(@RequestParam int category, @RequestParam int client){
+        return eventService.getByCat(category, client);
     }
 
     @PostMapping("/events/add")
@@ -136,9 +136,10 @@ public class MainController {
         return preferenceService.getByClient(client);
     }
 
-    @PostMapping("/preference/add")
-    public void addPref(@RequestBody Preference preference){
-        preferenceService.addPref(preference);
+    @PostMapping("/preferences/add")
+    public void addPref(@RequestBody PreferenceRequest request)
+    {
+        preferenceService.addClientPreference(request);
     }
 
 }

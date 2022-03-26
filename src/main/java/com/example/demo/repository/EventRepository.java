@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.ClientEvent;
 import com.example.demo.entity.Event;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,9 +15,6 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
     List<Event> findAllByOwner(int owner);
 
     Event findEventById(int id);
-
-    @Query(value = "SELECT * FROM event where category=:id", nativeQuery = true)
-    List<Event> getByCat(int id);
 
     @Query(value = "SELECT * FROM event where extract(month from start_time)=:month and category=:id", nativeQuery = true)
     List<Event> getByMonthAndCat(int month, int id);

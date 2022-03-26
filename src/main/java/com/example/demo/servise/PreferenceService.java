@@ -2,6 +2,7 @@ package com.example.demo.servise;
 
 import com.example.demo.entity.ClientPreference;
 import com.example.demo.entity.Preference;
+import com.example.demo.entity.PreferenceRequest;
 import com.example.demo.repository.ClientPrefRepo;
 import com.example.demo.repository.PreferenceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class PreferenceService {
             preferences.add(clientPreference.getPreference());
         }
         return preferences;
+    }
+
+    public void addClientPreference(PreferenceRequest request){
+        prefRepository.updatePrefList(request.getClient().getId());
+        if(!request.getPreferences().isEmpty()) {
+            for (Preference preference : request.getPreferences()) {
+                prefRepository.addPreference(request.getClient().getId(), preference.getId());
+            }
+        }
+
     }
 
     public void addPref(Preference preference){

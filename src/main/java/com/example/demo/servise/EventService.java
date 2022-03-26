@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +37,13 @@ public class EventService {
         return repository.findEventById(id);
     }
 
-    public List<Event> getByCat(int id){
-        return repository.getByCat(id);
+    public List<Event> getByCat(int id, int client){
+        List<ClientEvent> clientEvents = clientEventRepo.getByCat(id, client);
+        List<Event> events = new ArrayList<>();
+        for (ClientEvent clientEvent : clientEvents) {
+            events.add(clientEvent.getEvent());
+        }
+        return events;
     }
 
     public void addEvent(Event event){

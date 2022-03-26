@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ClientEventService {
@@ -24,13 +26,13 @@ public class ClientEventService {
     }
 
     public List<Event> getAllByClientAndDateAndCat(int id, int catId, int month){
-        List<Event> events = new ArrayList<>();
+        Set<Event> events = new HashSet<>();
         List<ClientEvent> clientEvents = repository.getByClientAndDateAndCat(id, catId, month);
         for (ClientEvent clientEvent : clientEvents) {
             events.add(clientEvent.getEvent());
         }
         System.out.println(events);
-        return events;
+        return new ArrayList<>(events);
     }
 
     public List<Event> getAllByClient(int id){

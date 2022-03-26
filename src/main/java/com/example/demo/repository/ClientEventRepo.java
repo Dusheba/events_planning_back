@@ -36,6 +36,11 @@ public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
             ,nativeQuery = true)
     List<ClientEvent> getByEvent(int id);
 
+    @Query(value = "SELECT * FROM client_event ce join client c on c.id = ce.client_id join event e " +
+            "on ce.event_id = e.id " +
+            " where category=:id and (ce.client_id=:client or e.owner_id=:client)", nativeQuery = true)
+    List<ClientEvent> getByCat(int id, int client);
+
 
     @Modifying
     @Transactional
