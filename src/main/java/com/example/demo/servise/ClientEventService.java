@@ -75,4 +75,17 @@ public class ClientEventService {
             }
         }
     }
+
+    public List<Event> getInvitation(int client){
+        Set<Event> events = new HashSet<>();
+        List<ClientEvent> clientEvents = repository.getInvitation(client);
+        for (ClientEvent clientEvent : clientEvents) {
+            events.add(clientEvent.getEvent());
+        }
+        return new ArrayList<>(events);
+    }
+
+    public void deleteInvitation(int client, int event){
+        repository.deleteByClientAndEvent(client, event);
+    }
 }

@@ -26,6 +26,8 @@ public class ClientService {
             newClient.setId(client.getId());
         }
         else {
+            int id = (int) (Math.random() * 100) +100;
+            client.setId(id);
             repository.save(client);
         }
     }

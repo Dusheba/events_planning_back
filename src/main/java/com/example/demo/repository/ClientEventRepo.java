@@ -41,6 +41,10 @@ public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
             " where category=:id and (ce.client_id=:client or e.owner_id=:client)", nativeQuery = true)
     List<ClientEvent> getByCat(int id, int client);
 
+    @Query(value = "select * from client_event cl join event e on cl.event_id = e.id " +
+            "where e.owner_id!=:client and cl.client_id=:client", nativeQuery = true)
+    List<ClientEvent> getInvitation(int client);
+
 
     @Modifying
     @Transactional
@@ -51,4 +55,9 @@ public interface ClientEventRepo extends CrudRepository<ClientEvent, Integer> {
     @Transactional
     @Query(value = "delete from client_event ce where ce.event_id =:event_id", nativeQuery = true)
     void updateGuestList(int event_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from client_event ce where client_id=:client and event_id=:event", nativeQuery = true)
+    void deleteByClientAndEvent(int client, int event);
 }

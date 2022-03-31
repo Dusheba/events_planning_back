@@ -59,6 +59,11 @@ public class MainController {
         return clientEventService.getAllByClient(id);
     }
 
+    @GetMapping("/invitation/notowner")
+    public List<Event> getInvitation(@RequestParam int client) {
+        return clientEventService.getInvitation(client);
+    }
+
     @GetMapping("/invitation/event")
     public List<Client> getClientByEvent(@RequestParam int id){
         return clientEventService.getByEvent(id);
@@ -67,6 +72,11 @@ public class MainController {
     @PostMapping("/invite")
     public void inviteClients(@RequestBody InvitationRequest request){
         clientEventService.inviteClients(request);
+    }
+
+    @DeleteMapping("/invitation/delete")
+    public void deleteInvite(@RequestParam int client, int event){
+        clientEventService.deleteInvitation(client, event);
     }
 
     @GetMapping("/category/all")
